@@ -16,6 +16,7 @@ public class Main {
         SparkSession sparkSession = SparkSession.builder()
                 .appName("testingSQL")
                 .master("local[*]")
+             //   .config("spark.sql.caseSensitive", true)
                 .getOrCreate();
 
         System.out.println("Spark Session built successfully.");
