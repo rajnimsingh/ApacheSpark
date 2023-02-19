@@ -1,5 +1,6 @@
 package com.spark.definitiveGuide.aggregations;
 
+import com.google.common.collect.Maps;
 import com.spark.tutorials.sql.Main;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -7,6 +8,8 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 
 import javax.xml.crypto.Data;
+
+import java.util.Map;
 
 import static org.apache.spark.sql.functions.*;
 
@@ -30,6 +33,12 @@ public class Grouping {
         dataset.createOrReplaceTempView("retail_data");
 
         sparkSession.sql("select CustomerID, sum(Quantity) from retail_data where CustomerID in (15555, 12346) group by CustomerID").show();
+
+        // Grouping with Maps
+        Map<String, String> groupMap = Maps.newHashMap();
+        groupMap.put("Quantity", "avg");
+
+        dataset.agg(groupMap).show();
 
         sparkSession.close();
     }
